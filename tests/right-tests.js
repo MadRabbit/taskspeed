@@ -123,6 +123,6 @@ window.tests = {
 	
 	"finale": function(){
 	  $(document.body).clean();
-	  return $$("*").length;
+	  return $$("body *").length;
 	}
 };
