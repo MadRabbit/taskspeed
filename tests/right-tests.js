@@ -29,7 +29,9 @@ window.tests = {
 	},
 	
 	"bind" : function(){
-		return $$('ul > li').each('onClick', function() {}).length;
+	  var elements = $$('ul > li');
+	  elements.each('on', 'click', function() {});
+		return elements.length;
 	},
 	
 	"attr" : function(){
@@ -38,9 +40,12 @@ window.tests = {
 	
 	"bindattr" : function(){
 	  var f = function() {};
-	  return $$("ul > li").each('observe', 'mouseover', f
-	    ).each('set', 'rel', 'touched'
-	    ).each('stopObserving', 'mouseover', f).length;
+	  var elements = $$("ul > li");
+	  elements.each('observe', 'mouseover', f);
+	  elements.each('set', 'rel', 'touched');
+	  elements.each('stopObserving', 'mouseover', f);
+	  
+	  return elements.length;
 	},
 	
 	"table": function(){
@@ -61,9 +66,11 @@ window.tests = {
 	},
 	
 	"addanchor" : function(){
-		return $$('.fromcode > li').each(function(li) {
+	  var elements = $$('.fromcode > li');
+	  elements.each(function(li) {
 		  li.appendChild(new Element('a', { href: 'http://example.com', 'html': 'link' }))
-		}).length;
+		});
+		return elements.length;
 	},
 	
 	"append" : function(){
@@ -91,30 +98,40 @@ window.tests = {
 	},
 	
 	"style": function(){
-		return $$('.added').each('setStyle', {
+	  var elements = $$('.added');
+		elements.each('setStyle', {
 			backgroundColor: '#ededed',
 			color: '#fff'
-		}).length;
+		});
+		return elements.length;
 	},
 	
 	"removeclass": function(){
-		return $$('.added').each('removeClass', 'added').length;
+	  var elements = $$('.added');
+	  elements.each('removeClass', 'added');
+		return elements.length;
 	},
 	
 	"sethtml": function(){
-		return $$('div').each('udpate', "<p>new content</p>").length;
+	  var elements = $$('div');
+	  elements.each('udpate', "<p>new content</p>");
+		return elements.length;
 	},
 	
 	"insertbefore" : function(){
-		return $$('.fromcode a').each(
+	  var elements = $$('.fromcode a');
+		elements.each(
 		  'insert', new Element('p').update("A Link"), 'before'
-		).length;
+		);
+		return elements.length;
 	},
 	
 	"insertafter" : function(){
-		return $$(".fromcode a").each(
+	  var elements = $$(".fromcode a");
+		elements.each(
 			'insert', new Element('p').update("After Link"), 'after'
-		).length;
+		);
+		return elements.length;
 	},
 	
 	"destroy": function(){ 
