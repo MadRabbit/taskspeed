@@ -6,9 +6,9 @@ window.tests = {
 	      new Element('ul', {
 	        'class': 'fromcode', id: 'setid'+i
 	      }).insert([
-	        new Element('li').insert('one'),
-	        new Element('li').insert('two'),
-	        new Element('li').insert('three')
+	        new Element('li', {html: 'one'}),
+	        new Element('li', {html: 'two'}),
+	        new Element('li', {html: 'three'})
 	      ])
 	    );
 	  }
@@ -35,12 +35,13 @@ window.tests = {
 	},
 	
 	"attr" : function(){
-		return $$("ul").map(function() { return this.id; }).length;
+		return $$("ul").map('id').length;
 	},
 	
 	"bindattr" : function(){
 	  var f = function() {};
 	  var elements = $$("ul > li");
+	  
 	  elements.each('observe', 'mouseover', f);
 	  elements.each('set', 'rel', 'touched');
 	  elements.each('stopObserving', 'mouseover', f);
@@ -52,8 +53,7 @@ window.tests = {
 		var table, tr;
 		for (var i = 0; i < 40; i++) {
 			table = new Element('table', { 'class': 'madetable' });
-			document.body.appendChild(table);
-
+      document.body.appendChild(table);
 			tr = new Element('tr');
 			tr.appendChild(new Element('td'));
 
@@ -68,7 +68,7 @@ window.tests = {
 	"addanchor" : function(){
 	  var elements = $$('.fromcode > li');
 	  elements.each(function(li) {
-		  li.appendChild(new Element('a', { href: 'http://example.com', 'html': 'link' }))
+		  li.appendChild(new Element('a', { href: 'http://example.com', html: 'link' }))
 		});
 		return elements.length;
 	},
@@ -77,7 +77,7 @@ window.tests = {
 	  for (var i = 0; i < 500; i++) {
 	    var el = new Element('div');
 	    el.setAttribute('rel', 'foo2');
-		  document.body.appendChild(el);
+	    document.body.appendChild(el);
 	  }
 	  
 	  return $$("[rel^='foo2']").length;
@@ -121,7 +121,7 @@ window.tests = {
 	"insertbefore" : function(){
 	  var elements = $$('.fromcode a');
 		elements.each(
-		  'insert', new Element('p').update("A Link"), 'before'
+		  'insert', new Element('p', {html: "A Link"}), 'before'
 		);
 		return elements.length;
 	},
@@ -129,7 +129,7 @@ window.tests = {
 	"insertafter" : function(){
 	  var elements = $$(".fromcode a");
 		elements.each(
-			'insert', new Element('p').update("After Link"), 'after'
+			'insert', new Element('p', {html: "After Link"}), 'after'
 		);
 		return elements.length;
 	},
