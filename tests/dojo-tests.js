@@ -2,11 +2,14 @@ window.tests = {
 	
 	"make" : function(){
 		for(var i = 0; i<250; i++){
-			dojo.create("ul", { 
+			var ul = dojo.create("ul", { 
 				"class": "fromcode",
-				innerHTML: "<li>one</li><li>two</li><li>three</li> ",
 				id:"setid" + i
 			}, dojo.body());
+			
+			dojo.create('li', {innerHTML: 'one'}, ul);
+			dojo.create('li', {innerHTML: 'two'}, ul);
+			dojo.create('li', {innerHTML: 'three'}, ul);
 		}
 		return dojo.query("ul.fromcode").length;
 	},
@@ -38,15 +41,19 @@ window.tests = {
 
 	"table": function(){
 		for(var i = 0; i < 40; i++){
-			var n = dojo.create("table", { "class":"madetable" }, dojo.body());
-			var row = dojo.place("<tr><td>first</td></tr>", n);
-			dojo.place("<td>before</td>", row, "first");
+		  var n = dojo.create("table", { "class":"madetable" }, dojo.body());
+			var row = dojo.create('tr', {}, n);
+			
+			dojo.create('td', {innerHTML: 'first'}, row);
+			dojo.create('td', {innerHTML: 'before'}, row, "first");
 		}
 		return dojo.query("tr td").length;
 	},
 	
 	"addanchor" : function(){
-		return dojo.query(".fromcode > li").addContent("<a href='http://example.com'>link</a>").length;
+		return dojo.query(".fromcode > li").forEach(function(li) {
+		  dojo.create('a', {href: 'http://example.com', innerHTML: 'link'}, li);
+		}).length;
 	},
 
 	"alt-add" : function(){
@@ -64,7 +71,7 @@ window.tests = {
 	
 	"append" : function(){
 		for(var i = 0; i<500; i++){
-			dojo.attr(dojo.place("<div>dojotest2</div>", dojo.body()), "rel", "bar2");
+		  dojo.create('div', {rel: 'bar2'}, dojo.body());
 		}
 		return dojo.query("div[rel^='bar2']").length;
 	},
@@ -100,11 +107,15 @@ window.tests = {
 	},
 	
 	"insertbefore" : function(){
-		return dojo.query(".fromcode a").addContent("<p>A Link</p>", "before").length;
+		return dojo.query(".fromcode a").forEach(function(a) {
+		  dojo.create('p', {innerHTML: 'A Link'}, a, 'before');
+		}).length;
 	},
 	
 	"insertafter" : function(){
-		return dojo.query(".fromcode a").addContent("<p>After Link</p>", "after").length;
+		return dojo.query(".fromcode a").forEach(function(a) {
+		  dojo.create('p', {innerHTML: 'After Link'}, a, 'after');
+		}).length;
 	},
 	
 	destroy: function(){ 

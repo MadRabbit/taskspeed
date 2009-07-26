@@ -7,7 +7,18 @@ window.tests = {
 			YAHOO.util.Dom.addClass(ul, 'fromcode');
 			YAHOO.util.Dom.setAttribute(ul, 'id', 'setid'+i);
 			document.body.appendChild(ul);
-			ul.innerHTML = '<li>one</li><li>two</li><li>three</li>';
+			
+			var li1 = document.createElement('li');
+			var li2 = document.createElement('li');
+			var li3 = document.createElement('li');
+			
+			li1.innerHTML = 'one';
+			li2.innerHTML = 'two';
+			li3.innerHTML = 'three';
+			
+			ul.appendChild(li1);
+			ul.appendChild(li2);
+			ul.appendChild(li3);
 		}
 		return YAHOO.util.Selector.query('ul.fromcode').length;
 	},
@@ -53,22 +64,34 @@ window.tests = {
 
 	"table": function(){
 		// Making sure to help IE with DOM manipulation wrt tables
-		var _, table, i;
-		for ( i = 0; i < 40; i++ ) {
-            _ = document.createElement('div');
-            _.innerHTML = '<table class="madetable"><tbody><tr><td>first</td></tr></tbody></table>';
-			table = _.getElementsByTagName('table')[0];
-			document.body.appendChild(table);
-			YAHOO.util.Dom.insertBefore(
-                document.createElement('td'),
-                table.getElementsByTagName('td')[0]);
+		var table, tr, td1, td2;
+		for (var i = 0; i < 40; i++ ) {
+		  table = document.createElement('table');
+		  YAHOO.util.Dom.addClass(table, 'madetable');
+		  document.body.appendChild(table);
+			
+			tr = document.createElement('tr');
+			table.appendChild(tr);
+			
+			td1 = document.createElement('td');
+			td1.innerHTML = 'first';
+		  tr.appendChild(td1);
+		  
+		  td2 = document.createElement('td');
+		  td2.innerHTML = 'before';
+		  
+			YAHOO.util.Dom.insertBefore(td2, td1);
 		}
 		return YAHOO.util.Selector.query('tr td').length;
 	},
 	
 	"addanchor" : function(){
 		return YAHOO.util.Dom.batch(YAHOO.util.Selector.query('.fromcode > li'), function(li){
-			li.innerHTML = '<a href="http://example.com">link</a>';
+		  var a = document.createElement('a');
+		  YAHOO.util.Dom.setAttribute(a, 'href', "http://example.com");
+		  a.innerHTML = 'link';
+		  
+			li.appendChild(a);
 		}).length;
 	},
 

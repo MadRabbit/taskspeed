@@ -59,7 +59,7 @@ window.tests = {
 
 			table.appendChild(tr);
 
-			tr.insert({ top: new Element('td') });		
+			tr.insert(new Element('td'), 'top');		
 		}
 	  
 		return $$('tr td').length;
@@ -74,13 +74,14 @@ window.tests = {
 	},
 	
 	"append" : function(){
+	  var div;
 	  for (var i = 0; i < 500; i++) {
-	    var el = new Element('div');
-	    el.setAttribute('rel', 'foo2');
-	    document.body.appendChild(el);
+	    div = new Element('div');
+	    div.setAttribute('rel', 'foo2');
+	    document.body.appendChild(div);
 	  }
 	  
-	  return $$("[rel^='foo2']").length;
+	  return $$("[rel='foo2']").length;
 	},
 	
 	"addclass-odd" : function(){
@@ -120,22 +121,24 @@ window.tests = {
 	
 	"insertbefore" : function(){
 	  var elements = $$('.fromcode a');
-		elements.each(
-		  'insert', new Element('p', {html: "A Link"}), 'before'
-		);
+		elements.each(function(a) {
+		  a.insert(new Element('p', {html: "A Link"}), 'before');
+		});
 		return elements.length;
 	},
 	
 	"insertafter" : function(){
 	  var elements = $$(".fromcode a");
-		elements.each(
-			'insert', new Element('p', {html: "After Link"}), 'after'
-		);
+		
+		elements.each(function(a) {
+		  a.insert(new Element('p', {html: "After Link"}), 'after');
+		});
+		
 		return elements.length;
 	},
 	
-	"destroy": function(){ 
-		return $$(".fromcode").each('remove').length;
+	"destroy": function(){
+	    return $$('.fromcode').each('remove').length;
 	},
 	
 	"finale": function(){

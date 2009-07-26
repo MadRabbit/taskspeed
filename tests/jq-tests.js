@@ -3,7 +3,9 @@ window.tests = {
 	"make": function(){
 		for(var i = 0; i<250; i++){
 			$("<ul id='setid" + i + "' class='fromcode'></ul>")
-				.append("<li>one</li><li>two</li><li>three</li>")
+				.append("<li>one</li>")
+				.append("<li>two</li>")
+				.append("<li>three</li>")
 				.appendTo("body");
 		}
 		return $("ul.fromcode").length;
