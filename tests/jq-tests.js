@@ -47,7 +47,9 @@ window.tests = {
 	},
 	
 	"addanchor" : function(){
-		return $(".fromcode > li").append("<a href='http://example.com'>link</a>").length;
+		return $(".fromcode > li").each(function(index, link) {
+		  $(link).append("<a href='http://example.com'>link</a>");
+		}).length;
 	},
 	
 	"append": function(){
@@ -74,11 +76,15 @@ window.tests = {
 	},
 	
 	"insertbefore" : function(){
-		return $(".fromcode a").before("<p>A Link</p>").length;
+	  return $(".fromcode a").each(function(index, link) {
+	    $(link).before('<p>A Link</p>');
+	  }).length;
 	},
 	
 	"insertafter" : function(){
-		return $(".fromcode a").after("<p>After Link</p>").length;
+		return $(".fromcode a").each(function(index, link) {
+		  $(link).after("<p>After Link</p>");
+		}).length;
 	},
 	
 	"destroy": function(){
