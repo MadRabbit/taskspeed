@@ -40,13 +40,11 @@ window.tests = {
 	
 	"bindattr" : function(){
 	  var f = function() {};
-	  var elements = $$("ul > li");
-	  
-	  elements.each('observe', 'mouseover', f);
-	  elements.each('set', 'rel', 'touched');
-	  elements.each('stopObserving', 'mouseover', f);
-	  
-	  return elements.length;
+	  return $$("ul > li").each(function(element) {
+	    element.observe('mouseover', f);
+  	  element.setAttribute('rel', 'touched');
+  	  element.stopObserving('mouseover', f);
+	  }).length;
 	},
 	
 	"table": function(){
@@ -76,8 +74,7 @@ window.tests = {
 	"append" : function(){
 	  var div;
 	  for (var i = 0; i < 500; i++) {
-	    div = new Element('div');
-	    div.setAttribute('rel', 'foo2');
+	    div = new Element('div', {rel: 'foo2'});
 	    document.body.appendChild(div);
 	  }
 	  
@@ -85,17 +82,10 @@ window.tests = {
 	},
 	
 	"addclass-odd" : function(){
-	  var oddDivs = [];
-	  
-	  $$('div').each(function(div, index) {
+	  return $$('div').filter(function(div, index) {
 		  div.addClass('added');
-		  if (index % 2 === 1) {
-		    div.addClass('odd');
-		    oddDivs.push(div);
-		  }
-	  });
-	  
-	  return oddDivs.length;
+		  if (index % 2 === 1) return div.addClass('odd');
+	  }).length;
 	},
 	
 	"style": function(){
