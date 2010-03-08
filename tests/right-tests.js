@@ -41,9 +41,10 @@ window.tests = {
 	"bindattr" : function(){
 	  var f = function() {};
 	  return $$("ul > li").each(function(element) {
-	    element.observe('mouseover', f);
-  	  element.setAttribute('rel', 'touched');
-  	  element.stopObserving('mouseover', f);
+	    element
+	      .observe('mouseover', f)
+  	    .set('rel', 'touched')
+  	    .stopObserving('mouseover', f);
 	  }).length;
 	},
 	
@@ -105,7 +106,7 @@ window.tests = {
 	
 	"sethtml": function(){
 	  var elements = $$('div');
-	  elements.each('udpate', "<p>new content</p>");
+	  elements.each('update', "<p>new content</p>");
 		return elements.length;
 	},
 	
