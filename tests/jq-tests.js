@@ -2,11 +2,11 @@ window.tests = {
 	
 	"make": function(){
 		for(var i = 0; i<250; i++){
-			$("<ul id='setid" + i + "' class='fromcode'></ul>")
-				.append("<li>one</li>")
-				.append("<li>two</li>")
-				.append("<li>three</li>")
-				.appendTo("body");
+		  $('<ul>', {'id': 'setid'+i, 'class': 'fromcode'})
+		    .append($('<li>', {html: 'one'}))
+		    .append($('<li>', {html: 'two'}))
+		    .append($('<li>', {html: 'three'}))
+		    .appendTo(document.body);
 		}
 		return $("ul.fromcode").length;
 	},
@@ -37,24 +37,28 @@ window.tests = {
 	},
 
 	"table": function(){
+	  var table, tr;
 		for(var i = 0; i < 40; i++){
-		  $("<table class='madetable'></table>")
-			.appendTo("body")
-			.html("<tr><td>first</td></tr>")
-			.find("tr").prepend("<td>before</td>");
+		  table = $("<table>", {'class': 'madetable'}).appendTo(document.body);
+		  
+		  $('<tr>')
+		    .append($('<td>'))
+		    .appendTo(table)
+		    .prepend($('<td>'));
 		}
+		
 		return $("tr td").length;
 	},
 	
 	"addanchor" : function(){
 		return $(".fromcode > li").each(function(index, link) {
-		  $(link).append("<a href='http://example.com'>link</a>");
+		  $(link).append($('<a>', {href: 'http://example.com', html: 'link'}));
 		}).length;
 	},
 	
 	"append": function(){
 		for(var i = 0; i<500; i++){
-			$("body").append("<div rel='foo'>test</div>");
+			$("body").append($('<div>', {rel: 'foo', html: 'test'}));
 		}
 		return $("[rel^='foo']").length;
 	},
@@ -77,13 +81,13 @@ window.tests = {
 	
 	"insertbefore" : function(){
 	  return $(".fromcode a").each(function(index, link) {
-	    $(link).before('<p>A Link</p>');
+	    $(link).before($('<p>', {html: 'A Link'}));
 	  }).length;
 	},
 	
 	"insertafter" : function(){
 		return $(".fromcode a").each(function(index, link) {
-		  $(link).after("<p>After Link</p>");
+		  $(link).after($('<p>', {html: 'After Link'}));
 		}).length;
 	},
 	
