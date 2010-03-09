@@ -136,7 +136,7 @@ window.tests = {
 	
 	"insertafter" : function(){
 		var anchors = $$(".fromcode a");
-		anchors.each( function(anchor) {
+		return anchors.each( function(anchor) {
 			anchor.insert({ after: new Element('p').update("After Link") });
 		}).length;
 	},
