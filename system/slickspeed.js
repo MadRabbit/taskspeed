@@ -125,11 +125,10 @@ window.onload = function(){
 		test.cell.innerHTML = '<b>' + results.time + ' ms</b><b>' + results.found + ' found</b>';
 		test.cell.speed = results.time;
 		if (results.error){
-			test.cell.innerHTML = results.time + ' ms | <span class="exception">error returned</a>';
+			test.cell.innerHTML = results.time + ' ms | <span class="exception" title="' + results.error.toString().replace(/"/g, '&quot;') + '">error returned</a>';
 			test.cell.className += ' exception';
 			test.cell.found = 0;
 			test.cell.error = true;
-      test.cell.title = results.error;
 		} else {
 			test.cell.found = results.found;
 			test.cell.error = false;
