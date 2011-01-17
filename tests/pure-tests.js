@@ -36,7 +36,7 @@ window.tests = {
     },
 
     "bind" : function(){
-      
+
         for(var
             attachEvent = utility.attachEvent,
             callback = function(){},
@@ -162,13 +162,24 @@ window.tests = {
         };
         return  length;
     },
-    
+
     "sethtml": function(){
-        var div = Array.prototype.slice.call(document.body.getElementsByTagName("div")), i = 0, node;
+        var div = document.body.getElementsByTagName("div"), i = 0, node, len = div.length;
+
+        try {
+          div = Array.prototype.slice.call(div, 0);
+        } catch(e) {
+          // OLD IE fix
+          for (var a = [], x=0; x < len; x++) {
+            a[x] = div[x];
+          }
+          div = a;
+        }
+
         while(node = div[i++])
             node.innerHTML = "<p>new content</p>"
         ;
-        return  div.length;
+        return  len;
     },
 
     "insertbefore" : function(){
@@ -180,7 +191,7 @@ window.tests = {
             for(var a = ul[i].getElementsByTagName("a"), len = a.length, j = 0, node; j < len; ++j){
                 ++total;
                 (node = a[j]).parentNode.insertBefore(p.cloneNode(true).appendChild(text.cloneNode(true)).parentNode, node);
-            };                
+            };
         };
         return  total;
     },
